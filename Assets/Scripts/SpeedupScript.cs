@@ -47,7 +47,8 @@ public class SpeedupScript : MonoBehaviour
         {
             obstacleTimer = obstacleTimerInitial;
             GameObject obj = Instantiate(obstaclePrefab);
-            obj.transform.position = new Vector3(obstacleSpawnPosX, Random.Range(obstacleConstraints.x, obstacleConstraints.y), 0);
+            Vector3 vec = new Vector3(obstacleSpawnPosX, Random.Range(obstacleConstraints.x, obstacleConstraints.y), 0);
+            obj.transform.position = vec;
             if (obj.GetComponent<PipeContainerScript>())
             {
                 obj.GetComponent<PipeContainerScript>().UpdateVelocity(-(3 + globalSpeed / 10));
@@ -60,6 +61,7 @@ public class SpeedupScript : MonoBehaviour
                 {
                     bread.GetComponent<BreadScript>().BreadLevel = Mathf.RoundToInt(globalSpeed);
                 }
+                bread.transform.position = vec;
             }
         }
         else
