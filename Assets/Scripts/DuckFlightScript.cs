@@ -52,7 +52,7 @@ public class DuckFlightScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Detects collision with enemies
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Obstacle"))
         {
             TargetHit();
         }
