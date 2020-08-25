@@ -55,13 +55,21 @@ public class SpeedupScript : MonoBehaviour
             }
             if (breadMode)
             {
-                breadCounter = breadCounterInitial;
-                GameObject bread = Instantiate(breadPrefab);
-                if (bread.GetComponent<BreadScript>())
+                if (breadCounter <= 0)
                 {
-                    bread.GetComponent<BreadScript>().BreadLevel = Mathf.RoundToInt(globalSpeed);
+                    breadCounter = breadCounterInitial;
+                    GameObject bread = Instantiate(breadPrefab);
+                    if (bread.GetComponent<BreadScript>())
+                    {
+                        bread.GetComponent<BreadScript>().BreadLevel = Mathf.RoundToInt(globalSpeed);
+                        bread.GetComponent<BreadScript>().MoveBread(-(3 + globalSpeed / 10));
+                    }
+                    bread.transform.position = new Vector3(vec.x + 0.5f, vec.y, vec.z);
                 }
-                bread.transform.position = vec;
+                else
+                {
+                    breadCounter--;
+                }
             }
         }
         else
