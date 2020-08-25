@@ -45,3 +45,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalSpeed: 1
   globalSpeedIncrease: 0.1
+  obstaclePrefab: {fileID: 6591224094685329428, guid: de8691e6f85afdd4b813667f447cc09c,
+    type: 3}
+  obstacleTimer: 3
+  obstacleTimerInitial: 3
+  obstacleTimerSpeed: 1
+  obstacleConstraints: {x: 0, y: 0}
+  obstacleSpawnPosX: 0
+  breadMode: 0
+  breadCounterInitial: 10
+  breadPrefab: {fileID: 0}

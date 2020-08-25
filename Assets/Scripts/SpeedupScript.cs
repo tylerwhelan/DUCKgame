@@ -13,12 +13,15 @@ public class SpeedupScript : MonoBehaviour
     public float obstacleTimerSpeed = 1;
     public Vector2 obstacleConstraints;
     public float obstacleSpawnPosX;
+    public bool breadMode = false;
+    private int breadCounter = 0;
+    public int breadCounterInitial = 10;
+    public GameObject breadPrefab;
 
     private void Start()
     {
-        /* Initiates target timer
-        targetTimer = targetTimerInitial;
-        */
+        obstacleTimer = obstacleTimerInitial;
+        breadCounter = breadCounterInitial;
         for (int i = 0; i < FindObjectsOfType<SpeedupHolder>().Length; i++)
         {
             info.Add(FindObjectsOfType<SpeedupHolder>()[i]);
@@ -48,6 +51,15 @@ public class SpeedupScript : MonoBehaviour
             if (obj.GetComponent<PipeContainerScript>())
             {
                 obj.GetComponent<PipeContainerScript>().UpdateVelocity(-(3 + globalSpeed / 10));
+            }
+            if (breadMode)
+            {
+                breadCounter = breadCounterInitial;
+                GameObject bread = Instantiate(breadPrefab);
+                if (bread.GetComponent<BreadScript>())
+                {
+                    bread.GetComponent<BreadScript>().BreadLevel = Mathf.RoundToInt(globalSpeed);
+                }
             }
         }
         else

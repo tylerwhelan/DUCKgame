@@ -56,5 +56,13 @@ public class DuckFlightScript : MonoBehaviour
         {
             TargetHit();
         }
+        //Detects collision with powerups
+        if (collision.CompareTag("Powerup"))
+        {
+            if (collision.GetComponent<BreadScript>())
+            {
+                collision.GetComponent<BreadScript>().ConsumeBread();
+            }
+        }
     }
 }
