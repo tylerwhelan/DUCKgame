@@ -16,7 +16,7 @@ public class BreadScript : MonoBehaviour
 
     //Powerup count
     const int basicCount = 2;
-    const int mediumCount = 1;
+    const int mediumCount = 2;
     const int strongCount = 1;
     const int superCount = 1;
 
@@ -96,20 +96,32 @@ public class BreadScript : MonoBehaviour
                     #region Jump Increase
                     default:
                         ShowPowerPanel(text + "\n Jump Height Increased!");
-                        duckRef.ModifyJump(1);
+                        duckRef.ModifyJump(0.5f);
                         break;
                     #endregion
                     #region Jump Decrease
                     case 1:
                         ShowPowerPanel(text + "\n Jump Height Decreased!");
-                        duckRef.ModifyJump(-1);
+                        duckRef.ModifyJump(-0.5f);
                         break;
-                    #endregion
+                        #endregion
                 }
                 break;
             #endregion
             #region Medium Abilities
             case 1:
+                text = "You picked up some bRed:";
+                switch (ability)
+                {
+                    default:
+                        ShowPowerPanel(text + "\n Slowdown Ability Time Increased!");
+                        duckRef.ActivateAbility(0);
+                        break;
+                    case 1:
+                        ShowPowerPanel(text + "\n Slowdown Ability Strength Increased!");
+                        duckRef.ActivateAbility(1);
+                        break;
+                }
                 break;
             #endregion
             #region Strong Abilities

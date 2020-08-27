@@ -10,10 +10,10 @@ public class DuckFlightScript : MonoBehaviour
     public Vector2 yConstraints;
     public float maxGravity; // negative number
     float score = 0;
-    bool dead = false;
+    public bool dead = false;
     public GameObject textScore;
 
-    void Update()
+    public virtual void Update()
     {
         if (!dead)
         {
