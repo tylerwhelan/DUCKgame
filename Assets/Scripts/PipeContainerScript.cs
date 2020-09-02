@@ -16,7 +16,7 @@ public class PipeContainerScript : MonoBehaviour
     }
     public void UpdateVelocity(float vel)
     {
-        lowerPipe.velocity = new Vector2(vel, 0);
-        upperPipe.velocity = new Vector2(vel, 0);
+        lowerPipe.velocity = new Vector3(vel, 0, 0);
+        upperPipe.velocity = new Vector3(vel, 0, 0);
     }
 }

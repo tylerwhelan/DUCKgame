@@ -17,15 +17,15 @@ public class DuckFlightScript : MonoBehaviour
     {
         if (!dead)
         {
-            Vector2 moveVector = Vector2.zero;
+            Vector3 moveVector = Vector3.zero;
             //Up-down movement
             if (Input.GetKey(KeyCode.Space))
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, jumpForce);
+                GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
             }
 
-            transform.position = new Vector2(Mathf.Clamp(transform.position.x, xConstraints.x, xConstraints.y), Mathf.Clamp(transform.position.y, yConstraints.x, yConstraints.y));
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, Mathf.Clamp(GetComponent<Rigidbody2D>().velocity.y, maxGravity, jumpForce));
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, xConstraints.x, xConstraints.y), Mathf.Clamp(transform.position.y, yConstraints.x, yConstraints.y), 0);
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0, Mathf.Clamp(GetComponent<Rigidbody2D>().velocity.y, maxGravity, jumpForce), 0);
 
             //Score
             score += 1 * Time.deltaTime;
@@ -49,20 +49,12 @@ public class DuckFlightScript : MonoBehaviour
         score += increase;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         //Detects collision with enemies
         if (collision.CompareTag("Obstacle"))
         {
             TargetHit();
-        }
-        //Detects collision with powerups
-        if (collision.CompareTag("Powerup"))
-        {
-            if (collision.GetComponent<BreadScript>())
-            {
-                collision.GetComponent<BreadScript>().ConsumeBread();
-            }
         }
     }
 }

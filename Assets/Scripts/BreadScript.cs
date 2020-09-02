@@ -95,14 +95,14 @@ public class BreadScript : MonoBehaviour
                 {
                     #region Jump Increase
                     default:
-                        ShowPowerPanel(text + "\n Jump Height Increased!");
-                        duckRef.ModifyJump(0.5f);
+                        ShowPowerPanel(text + "\n Health restored!");
+                        duckRef.ActivateAbility(2);
                         break;
                     #endregion
                     #region Jump Decrease
                     case 1:
-                        ShowPowerPanel(text + "\n Jump Height Decreased!");
-                        duckRef.ModifyJump(-0.5f);
+                        ShowPowerPanel(text + "\n Max Health increased!");
+                        duckRef.ActivateAbility(3);
                         break;
                         #endregion
                 }

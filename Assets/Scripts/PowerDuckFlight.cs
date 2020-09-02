@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerDuckFlight : DuckFlightScript
 {
@@ -8,6 +9,12 @@ public class PowerDuckFlight : DuckFlightScript
     float slowTime = 0;
     float abilityCooldown = 0;
     public float initialAbilityCooldown = 1;
+    public int health = 20;
+    public int healthLoss = 10;
+    float damageCooldown;
+    bool invulnerable = false;
+    public GameObject textHealth;
+    public int maxHealth = 20;
 
     public void ModifyJump(float modifier)
     {
@@ -35,6 +42,44 @@ public class PowerDuckFlight : DuckFlightScript
                     slowStrength = 0.9f;
                 }
                 break;
+            case 2:
+                if (health < maxHealth)
+                {
+                    health += 5;
+                }
+                break;
+            case 3:
+                maxHealth++;
+                break;
+        }
+    }
+
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Detects collision with powerups
+        if (collision.CompareTag("Powerup"))
+        {
+            if (collision.GetComponent<BreadScript>())
+            {
+                collision.GetComponent<BreadScript>().ConsumeBread();
+            }
+        }
+
+        //Detects collision with enemies
+        if (collision.CompareTag("Obstacle") && !invulnerable)
+        {
+            TakeDamage();
+        }
+    }
+
+    void TakeDamage()
+    {
+        damageCooldown = 3f;
+        health -= healthLoss;
+        invulnerable = true;
+        if (textHealth.GetComponent<Text>())
+        {
+            textHealth.GetComponent<Text>().text = "Health: " + health;
         }
     }
 
@@ -71,6 +116,23 @@ public class PowerDuckFlight : DuckFlightScript
             else
             {
                 abilityCooldown -= Time.deltaTime;
+            }
+
+            if (damageCooldown > 0)
+            {
+                damageCooldown -= Time.deltaTime;
+                if (GetComponent<SpriteRenderer>())
+                {
+                    GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 140);
+                }
+            }
+            else if (invulnerable)
+            {
+                invulnerable = false;
+                if (GetComponent<SpriteRenderer>())
+                {
+                    GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                }
             }
         }
     }
