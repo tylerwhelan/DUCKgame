@@ -37,7 +37,7 @@ public class DuckFlightScript : MonoBehaviour
     }
 
     //Run when player dies
-    void TargetHit()
+    public void TargetHit()
     {
         dead = true;
         Time.timeScale = 0;

@@ -366,6 +366,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 177908562}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &229227823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5019231967206876503, guid: d5a66c45462302b4bad83d4c036bfa75,
+    type: 3}
+  m_PrefabInstance: {fileID: 1689826278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &267669538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1360,16 +1366,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e846f21607dae848a4d4af05dc1d460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
+  jumpForce: 4.5
   xConstraints: {x: -8.5, y: 8.5}
   yConstraints: {x: -4.5, y: 4.5}
   maxGravity: -10
   dead: 0
   textScore: {fileID: 1689826279}
   initialAbilityCooldown: 1
-  health: 0
-  healthLoss: 0
-  textHealth: {fileID: 0}
+  health: 20
+  healthLoss: 10
+  textHealth: {fileID: 229227823}
   maxHealth: 20
 --- !u!1001 &1452372640
 PrefabInstance:

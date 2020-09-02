@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class PowerDuckFlight : DuckFlightScript
 {
-    float slowStrength = 0;
+    float slowStrength = 0.9f;
     float slowTime = 0;
     float abilityCooldown = 0;
     public float initialAbilityCooldown = 1;
+    float slowCooldown = 0;
     public int health = 20;
     public int healthLoss = 10;
     float damageCooldown;
@@ -37,9 +38,9 @@ public class PowerDuckFlight : DuckFlightScript
                 {
                     slowTime = 0.5f;
                 }
-                if (slowStrength <= 0)
+                else
                 {
-                    slowStrength = 0.9f;
+                    slowTime += 0.25f;
                 }
                 break;
             case 2:
@@ -47,10 +48,26 @@ public class PowerDuckFlight : DuckFlightScript
                 {
                     health += 5;
                 }
+                if (textHealth.GetComponent<Text>())
+                {
+                    textHealth.GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
+                }
                 break;
             case 3:
                 maxHealth++;
+                if (textHealth.GetComponent<Text>())
+                {
+                    textHealth.GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
+                }
                 break;
+        }
+    }
+
+    private void Start()
+    {
+        if (textHealth.GetComponent<Text>())
+        {
+            textHealth.GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
         }
     }
 
@@ -75,11 +92,22 @@ public class PowerDuckFlight : DuckFlightScript
     void TakeDamage()
     {
         damageCooldown = 3f;
-        health -= healthLoss;
-        invulnerable = true;
+        health = Mathf.Clamp(health - healthLoss, 0, maxHealth);
         if (textHealth.GetComponent<Text>())
         {
-            textHealth.GetComponent<Text>().text = "Health: " + health;
+            textHealth.GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
+        }
+        if (health <= 0)
+        {
+            TargetHit();
+        }
+        else
+        {
+            invulnerable = true;
+            if (GetComponent<SpriteRenderer>())
+            {
+                GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 40);
+            }
         }
     }
 
@@ -95,36 +123,28 @@ public class PowerDuckFlight : DuckFlightScript
                     if (slowTime > 0)
                     {
                         BeginSlow();
-                        Invoke("EndSlow", slowTime);
                     }
                     Debug.Log("Shift Ability");
+                    abilityCooldown = initialAbilityCooldown;
                 }
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-
-                }
-                if (Input.GetKeyDown(KeyCode.A))
-                {
-
-                }
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-
-                }
-                abilityCooldown = initialAbilityCooldown;
             }
             else
             {
                 abilityCooldown -= Time.deltaTime;
             }
 
+            if (slowCooldown > 0)
+            {
+                slowCooldown -= Time.deltaTime * (1 / slowStrength);
+            }
+            else
+            {
+                EndSlow();
+            }
+
             if (damageCooldown > 0)
             {
                 damageCooldown -= Time.deltaTime;
-                if (GetComponent<SpriteRenderer>())
-                {
-                    GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 140);
-                }
             }
             else if (invulnerable)
             {
@@ -140,6 +160,7 @@ public class PowerDuckFlight : DuckFlightScript
     void BeginSlow()
     {
         Time.timeScale = slowStrength;
+        slowCooldown = slowTime;
     }
 
     void EndSlow()

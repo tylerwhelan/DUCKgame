@@ -13,6 +13,8 @@ public class BreadScript : MonoBehaviour
     private PowerDuckFlight duckRef;
     public GameObject powerPanel;
     public Text powerText;
+    float panelCooldown;
+    bool panelTicking;
 
     //Powerup count
     const int basicCount = 2;
@@ -38,7 +40,19 @@ public class BreadScript : MonoBehaviour
     {
         if (transform.position.x <= -15)
         {
-            EndSelf();
+            EndSelf(true);
+        }
+
+        if (panelTicking)
+        {
+            if (panelCooldown > 0)
+            {
+                panelCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                HidePowerPanel();
+            }
         }
     }
 
@@ -126,14 +140,28 @@ public class BreadScript : MonoBehaviour
             #endregion
             #region Strong Abilities
             case 2:
+                text = "You picked up some Ghost Bread:";
+                switch (ability)
+                {
+                    default:
+                        ShowPowerPanel(text + "\n This bread doesn't do anything yet!");
+                        break;
+                }
                 break;
             #endregion
             #region Super Abilities
             case 3:
+                text = "You picked up some Sourdough:";
+                switch (ability)
+                {
+                    default:
+                        ShowPowerPanel(text + "\n This bread doesn't do anything yet!");
+                        break;
+                }
                 break;
-            #endregion
+                #endregion
         }
-        EndSelf();
+        EndSelf(false);
     }
 
     public void MoveBread(float vel)
@@ -145,16 +173,27 @@ public class BreadScript : MonoBehaviour
     {
         powerText.text = panelText;
         powerPanel.SetActive(true);
-        Invoke("HidePowerPanel", 3);
+        panelCooldown = 3f;
+        panelTicking = true;
     }
 
     void HidePowerPanel()
     {
+        panelTicking = false;
         powerPanel.SetActive(false);
+        EndSelf(true);
     }
 
-    void EndSelf()
+    void EndSelf(bool full)
     {
-        Destroy(gameObject);
+        if (full)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            transform.position = new Vector3(0, -15, 0);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
     }
 }
