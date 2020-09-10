@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PipeContainerScript : MonoBehaviour
 {
-    public Rigidbody2D lowerPipe;
-    public Rigidbody2D upperPipe;
+    public Rigidbody lowerPipe;
+    public Rigidbody upperPipe;
 
     void Update()
     {

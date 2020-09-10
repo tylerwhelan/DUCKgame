@@ -46,7 +46,7 @@ public class PowerDuckFlight : DuckFlightScript
             case 2:
                 if (health < maxHealth)
                 {
-                    health += 5;
+                    health = Mathf.Clamp(health + 5, 0, maxHealth);
                 }
                 if (textHealth.GetComponent<Text>())
                 {
@@ -55,6 +55,7 @@ public class PowerDuckFlight : DuckFlightScript
                 break;
             case 3:
                 maxHealth++;
+                health++;
                 if (textHealth.GetComponent<Text>())
                 {
                     textHealth.GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
@@ -63,27 +64,28 @@ public class PowerDuckFlight : DuckFlightScript
         }
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         if (textHealth.GetComponent<Text>())
         {
             textHealth.GetComponent<Text>().text = "Health: " + health + "/" + maxHealth;
         }
     }
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    public override void OnTriggerEnter (Collider other)
     {
         //Detects collision with powerups
-        if (collision.CompareTag("Powerup"))
+        if (other.CompareTag("Powerup"))
         {
-            if (collision.GetComponent<BreadScript>())
+            if (other.GetComponent<BreadScript>())
             {
-                collision.GetComponent<BreadScript>().ConsumeBread();
+                other.GetComponent<BreadScript>().ConsumeBread();
             }
         }
 
         //Detects collision with enemies
-        if (collision.CompareTag("Obstacle") && !invulnerable)
+        if (other.CompareTag("Obstacle") && !invulnerable)
         {
             TakeDamage();
         }
@@ -91,7 +93,7 @@ public class PowerDuckFlight : DuckFlightScript
 
     void TakeDamage()
     {
-        damageCooldown = 3f;
+        damageCooldown = 1.2f;
         health = Mathf.Clamp(health - healthLoss, 0, maxHealth);
         if (textHealth.GetComponent<Text>())
         {
@@ -137,9 +139,10 @@ public class PowerDuckFlight : DuckFlightScript
             {
                 slowCooldown -= Time.deltaTime * (1 / slowStrength);
             }
-            else
+            else if (Time.timeScale != 1 && Time.timeScale != 0)
             {
                 EndSlow();
+                Debug.Log("print");
             }
 
             if (damageCooldown > 0)

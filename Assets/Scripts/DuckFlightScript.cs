@@ -12,6 +12,23 @@ public class DuckFlightScript : MonoBehaviour
     float score = 0;
     public bool dead = false;
     public GameObject textScore;
+    public GameObject deathMenu;
+    public GameObject deathScore;
+    public GameObject HUDRef;
+    bool activated = false;
+    public bool Activated
+    {
+        get
+        {
+            return activated;
+        }
+    }
+
+    public virtual void Start()
+    {
+        Time.timeScale = 0;
+        Debug.Log("Off");
+    }
 
     public virtual void Update()
     {
@@ -21,11 +38,17 @@ public class DuckFlightScript : MonoBehaviour
             //Up-down movement
             if (Input.GetKey(KeyCode.Space))
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
+                GetComponent<Rigidbody>().velocity = new Vector3(0, jumpForce, 0);
+                if (!activated)
+                {
+                    Time.timeScale = 1;
+                    activated = true;
+                    Debug.Log("On");
+                }
             }
 
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, xConstraints.x, xConstraints.y), Mathf.Clamp(transform.position.y, yConstraints.x, yConstraints.y), 0);
-            GetComponent<Rigidbody2D>().velocity = new Vector3(0, Mathf.Clamp(GetComponent<Rigidbody2D>().velocity.y, maxGravity, jumpForce), 0);
+            GetComponent<Rigidbody>().velocity = new Vector3(0, Mathf.Clamp(GetComponent<Rigidbody>().velocity.y, maxGravity, jumpForce), 0);
 
             //Score
             score += 1 * Time.deltaTime;
@@ -41,7 +64,12 @@ public class DuckFlightScript : MonoBehaviour
     {
         dead = true;
         Time.timeScale = 0;
-        Debug.Log("Score: " + Mathf.RoundToInt(score));
+        deathMenu.SetActive(true);
+        HUDRef.SetActive(false);
+        if (deathScore.GetComponent<Text>())
+        {
+            deathScore.GetComponent<Text>().text = "Score: " + Mathf.RoundToInt(score);
+        }
     }
 
     public void IncreaseScore(int increase)
@@ -49,10 +77,10 @@ public class DuckFlightScript : MonoBehaviour
         score += increase;
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter(Collider other)
     {
         //Detects collision with enemies
-        if (collision.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle"))
         {
             TargetHit();
         }

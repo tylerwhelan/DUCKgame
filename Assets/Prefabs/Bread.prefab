@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 415301813572041258}
   - component: {fileID: 1988613507803822350}
   - component: {fileID: 3264684212127801845}
-  - component: {fileID: 5308535193762774749}
-  - component: {fileID: 9083291886131220457}
+  - component: {fileID: 466775109135102260}
+  - component: {fileID: 1308107484732452258}
   m_Layer: 0
   m_Name: Bread
   m_TagString: Powerup
@@ -103,50 +103,34 @@ MonoBehaviour:
   - {fileID: -6533464606919942222, guid: 095a5fd3fa586f24cb4b975da6f0a671, type: 3}
   - {fileID: -4160767396920409728, guid: 095a5fd3fa586f24cb4b975da6f0a671, type: 3}
   - {fileID: -4091295016861336908, guid: 095a5fd3fa586f24cb4b975da6f0a671, type: 3}
---- !u!50 &5308535193762774749
-Rigidbody2D:
-  serializedVersion: 4
+  powerPanel: {fileID: 0}
+  powerText: {fileID: 0}
+--- !u!54 &466775109135102260
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792654716050079998}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  serializedVersion: 2
   m_Mass: 1
-  m_LinearDrag: 0
+  m_Drag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
-  m_Constraints: 6
---- !u!61 &9083291886131220457
-BoxCollider2D:
+  m_Constraints: 120
+  m_CollisionDetection: 0
+--- !u!65 &1308107484732452258
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792654716050079998}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}

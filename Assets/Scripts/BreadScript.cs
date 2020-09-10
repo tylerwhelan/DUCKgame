@@ -15,9 +15,10 @@ public class BreadScript : MonoBehaviour
     public Text powerText;
     float panelCooldown;
     bool panelTicking;
+    bool template = false;
 
     //Powerup count
-    const int basicCount = 2;
+    const int basicCount = 1;
     const int mediumCount = 2;
     const int strongCount = 1;
     const int superCount = 1;
@@ -25,6 +26,10 @@ public class BreadScript : MonoBehaviour
     private void Start()
     {
         duckRef = FindObjectOfType<PowerDuckFlight>();
+        if (!duckRef.Activated)
+        {
+            ShowPowerPanel("Press Space to Jump.\nPress Left Shift to use your ability.", true);
+        }
     }
 
     public int BreadLevel
@@ -107,18 +112,20 @@ public class BreadScript : MonoBehaviour
                 text = "You picked up some Bread:";
                 switch (ability)
                 {
-                    #region Jump Increase
+                    #region Health Increase/Restore
                     default:
-                        ShowPowerPanel(text + "\n Health restored!");
-                        duckRef.ActivateAbility(2);
+                        if (duckRef.health >= duckRef.maxHealth)
+                        {
+                            ShowPowerPanel(text + "\n Max Health increased!");
+                            duckRef.ActivateAbility(3);
+                        }
+                        else
+                        {
+                            ShowPowerPanel(text + "\n Health restored!");
+                            duckRef.ActivateAbility(2);
+                        }
                         break;
                     #endregion
-                    #region Jump Decrease
-                    case 1:
-                        ShowPowerPanel(text + "\n Max Health increased!");
-                        duckRef.ActivateAbility(3);
-                        break;
-                        #endregion
                 }
                 break;
             #endregion
@@ -127,14 +134,18 @@ public class BreadScript : MonoBehaviour
                 text = "You picked up some bRed:";
                 switch (ability)
                 {
+                    #region Slowdown Time Up
                     default:
                         ShowPowerPanel(text + "\n Slowdown Ability Time Increased!");
                         duckRef.ActivateAbility(0);
                         break;
+                    #endregion
+                    #region Slowdown Strength Up
                     case 1:
                         ShowPowerPanel(text + "\n Slowdown Ability Strength Increased!");
                         duckRef.ActivateAbility(1);
                         break;
+                    #endregion
                 }
                 break;
             #endregion
@@ -166,7 +177,7 @@ public class BreadScript : MonoBehaviour
 
     public void MoveBread(float vel)
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(vel, 0);
+        GetComponent<Rigidbody>().velocity = new Vector3(vel, 0, 0);
     }
 
     void ShowPowerPanel(string panelText)
@@ -177,11 +188,24 @@ public class BreadScript : MonoBehaviour
         panelTicking = true;
     }
 
+    void ShowPowerPanel(string panelText, bool tmpl)
+    {
+        template = tmpl;
+        ShowPowerPanel(panelText);
+    }
+
     void HidePowerPanel()
     {
         panelTicking = false;
         powerPanel.SetActive(false);
-        EndSelf(true);
+        if (template)
+        {
+            EndSelf(false);
+        }
+        else
+        {
+            EndSelf(true);
+        }
     }
 
     void EndSelf(bool full)
@@ -193,7 +217,7 @@ public class BreadScript : MonoBehaviour
         else
         {
             transform.position = new Vector3(0, -15, 0);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
     }
 }
