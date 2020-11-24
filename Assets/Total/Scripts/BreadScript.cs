@@ -26,7 +26,11 @@ public class BreadScript : MonoBehaviour
     private void Start()
     {
         duckRef = FindObjectOfType<PowerDuckFlight>();
-        if (!duckRef.Activated)
+        if (!duckRef)
+        {
+            Destroy(gameObject);
+        }
+        else if (!duckRef.Activated)
         {
             ShowPowerPanel("Press Space to Jump.\nPress Left Shift to use your ability.", true);
         }

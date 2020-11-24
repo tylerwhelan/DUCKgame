@@ -1,21 +1,21 @@
 fileFormatVersion: 2
-guid: 732ae6d46f2478b4e84b8ee4959f8171
+guid: dc7abb77c30bc5f48b975bb38f210f18
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7371303158182512957
-    second: PlaceholderPipe_0
+      213: 6008755849024553855
+    second: Placeholder_0
   - first:
-      213: 6250686764643128786
-    second: PlaceholderPipe_1
+      213: 4121941241734358017
+    second: Placeholder_1
   - first:
-      213: -5594129007243734857
-    second: PlaceholderPipe_2
+      213: -1733274276621596944
+    second: Placeholder_2
   - first:
-      213: -36868101719650287
-    second: PlaceholderPipe_3
+      213: 4438859553938676302
+    second: Placeholder_3
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -69,7 +69,6 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -99,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlaceholderPipe_0
+      name: Placeholder_0
       rect:
         serializedVersion: 2
         x: 0
@@ -113,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c6f0dc15ded3b990800000000000000
-      internalID: -7371303158182512957
+      spriteID: f73c823eb93636350800000000000000
+      internalID: 6008755849024553855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlaceholderPipe_1
+      name: Placeholder_1
       rect:
         serializedVersion: 2
         x: 16
@@ -134,14 +133,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d51ac0be76eeb650800000000000000
-      internalID: 6250686764643128786
+      spriteID: 104eb9a68b3143930800000000000000
+      internalID: 4121941241734358017
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlaceholderPipe_2
+      name: Placeholder_2
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +154,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b0578f8e49ad52b0800000000000000
-      internalID: -5594129007243734857
+      spriteID: 0f6c5ab8a3c22f7e0800000000000000
+      internalID: -1733274276621596944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlaceholderPipe_3
+      name: Placeholder_3
       rect:
         serializedVersion: 2
         x: 16
@@ -176,8 +175,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 110157528a40d7ff0800000000000000
-      internalID: -36868101719650287
+      spriteID: e4a1d580f3ff99d30800000000000000
+      internalID: 4438859553938676302
       vertices: []
       indices: 
       edges: []
