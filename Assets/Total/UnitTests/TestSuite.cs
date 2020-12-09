@@ -89,9 +89,9 @@ public class TestSuite
             player.gameObject.SetActive(true);
             Time.timeScale = 1;
         }
-        checkCount = 30;
-        Object.FindObjectOfType<SpeedupScript>().SpawnObstacle(new Vector3(player.transform.position.x, player.transform.position.y + 2f, player.transform.position.z));
+        checkCount = 10;
         int health = (player as PowerDuckFlight).health;
+        Object.FindObjectOfType<SpeedupScript>().SpawnObstacle(new Vector3(player.transform.position.x, player.transform.position.y + 2f, player.transform.position.z));
         int changedHealth = (player as PowerDuckFlight).health;
         bool yes = false;
         while (checkCount > 0 && !yes)
@@ -101,6 +101,7 @@ public class TestSuite
             {
                 yes = true;
             }
+            changedHealth = (player as PowerDuckFlight).health;
             checkCount--;
         }
         Debug.Log(yes);
