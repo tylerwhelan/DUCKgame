@@ -70,6 +70,41 @@ public class TestSuite
         }
         Debug.Log(wrapped);
         Assert.True(wrapped);
+        player.gameObject.SetActive(true);
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerCanTakeDamage()
+    {
+        if (!CheckSpeedHolder())
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            FillSpdList();
+        }
+        if (!player)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            Debug.Log("ERROR");
+            player = Object.FindObjectOfType<DuckFlightScript>();
+            player.gameObject.SetActive(true);
+            Time.timeScale = 1;
+        }
+        checkCount = 30;
+        Object.FindObjectOfType<SpeedupScript>().SpawnObstacle(new Vector3(player.transform.position.x, player.transform.position.y + 2f, player.transform.position.z));
+        int health = (player as PowerDuckFlight).health;
+        int changedHealth = (player as PowerDuckFlight).health;
+        bool yes = false;
+        while (checkCount > 0 && !yes)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            if (changedHealth < health)
+            {
+                yes = true;
+            }
+            checkCount--;
+        }
+        Debug.Log(yes);
+        Assert.True(yes);
     }
 
     [TearDown]

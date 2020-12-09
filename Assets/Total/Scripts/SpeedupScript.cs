@@ -46,25 +46,15 @@ public class SpeedupScript : MonoBehaviour
         if (obstacleTimer <= 0)
         {
             obstacleTimer = obstacleTimerInitial;
-            GameObject obj = Instantiate(obstaclePrefab);
-            Vector3 vec = new Vector3(obstacleSpawnPosX, Random.Range(obstacleConstraints.x, obstacleConstraints.y), 0);
-            obj.transform.position = vec;
-            if (obj.GetComponent<PipeContainerScript>())
-            {
-                obj.GetComponent<PipeContainerScript>().UpdateVelocity(-(3 + globalSpeed / 10));
-            }
+            Vector3 vect = new Vector3(obstacleSpawnPosX, Random.Range(obstacleConstraints.x, obstacleConstraints.y), 0);
+            SpawnObstacle(vect);
+
             if (breadMode)
             {
                 if (breadCounter <= 0)
                 {
                     breadCounter = breadCounterInitial;
-                    GameObject bread = Instantiate(breadPrefab);
-                    if (bread.GetComponent<BreadScript>())
-                    {
-                        bread.GetComponent<BreadScript>().BreadLevel = Mathf.RoundToInt(globalSpeed);
-                        bread.GetComponent<BreadScript>().MoveBread(-(3 + globalSpeed / 10));
-                    }
-                    bread.transform.position = new Vector3(vec.x + 0.5f, vec.y, vec.z);
+                    SpawnBread(vect);
                 }
                 else
                 {
@@ -76,5 +66,26 @@ public class SpeedupScript : MonoBehaviour
         {
             obstacleTimer -= obstacleTimerSpeed * (1 + (globalSpeed / 10)) * Time.deltaTime;
         }
+    }
+
+    public void SpawnObstacle(Vector3 vec)
+    {
+        GameObject obj = Instantiate(obstaclePrefab);
+        obj.transform.position = vec;
+        if (obj.GetComponent<PipeContainerScript>())
+        {
+            obj.GetComponent<PipeContainerScript>().UpdateVelocity(-(3 + globalSpeed / 10));
+        }
+    }
+
+    public void SpawnBread(Vector3 vec)
+    {
+        GameObject bread = Instantiate(breadPrefab);
+        if (bread.GetComponent<BreadScript>())
+        {
+            bread.GetComponent<BreadScript>().BreadLevel = Mathf.RoundToInt(globalSpeed);
+            bread.GetComponent<BreadScript>().MoveBread(-(3 + globalSpeed / 10));
+        }
+        bread.transform.position = new Vector3(vec.x + 0.5f, vec.y, vec.z);
     }
 }
